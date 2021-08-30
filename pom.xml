@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.advanced.marsroverkata</groupId>
+    <artifactId>advanced-land-rovert</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0</version>
+    
+
+    <properties>
+        <!-- https://maven.apache.org/general.html#encoding-warning -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+		<log4j.version>1.2.17</log4j.version>
+		<project.url>1.2.17</project.url>
+		<junit.version>4.5</junit.version>
+		<modules.version>1.0.0</modules.version>
+		<parent.version>1.0.0</parent.version>
+		
+		<!-- Spring boot dependencies -->
+		<spring.boot.version>2.5.4</spring.boot.version>
+		<h2.version>1.4.200</h2.version>
+		
+    </properties>
+    
+	
+    <modules>
+        <module>navigation</module>
+        <module>web</module>
+    </modules>
+
+ 	<build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
