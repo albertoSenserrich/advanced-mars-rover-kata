@@ -36,7 +36,7 @@ public class MarsRoverServiceImpl implements MarsRoverService {
 		List<Position> rsl = new LinkedList<Position>();
 		for (MarsVehicle vehicleElem : vehicles) {
 			rsl.add(new Position(vehicleElem.getXPos(), vehicleElem.getYPos(),
-					vehicleElem.getPosition().getOrigentation().getCode(), vehicleElem.getDetailMessageToReport()));
+					vehicleElem.getPosition().getOrigentation().getCode(), vehicleElem.getDataToReport()));
 		}
 		return new SpaceStationCommandsResponse(rsl);
 	}

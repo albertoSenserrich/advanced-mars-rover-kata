@@ -93,5 +93,9 @@ public abstract class MarsVehicle {
 		return detailMessageToReport;
 	}
 
+	public String getDataToReport() {
+		return dataToReport;
+	}
+
 
 }

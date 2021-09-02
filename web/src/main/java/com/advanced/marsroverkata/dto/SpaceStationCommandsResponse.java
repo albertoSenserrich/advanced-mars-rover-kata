@@ -18,15 +18,11 @@ public class SpaceStationCommandsResponse  implements Serializable{
 	public List<Position> getFinalCoordinates() {
 		return finalCoordinates;
 	}
-	public void setFinalCoordinates(List<Position> finalCoordinates) {
-		this.finalCoordinates = finalCoordinates;
-	}
+	
 	public String getDetailMessage() {
 		return detailMessage;
 	}
-	public void setDetailMessage(String detailMessage) {
-		this.detailMessage = detailMessage;
-	}
+
 	public SpaceStationCommandsResponse(String detailMessage) {
 		super();
 		this.detailMessage = detailMessage;
