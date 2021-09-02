@@ -97,5 +97,12 @@ public abstract class MarsVehicle {
 		return dataToReport;
 	}
 
+	public int calculateTotalAreaExplored() {
+		int totalAreaExplored = 0;
+		if(areaToExplore!=null) {
+			totalAreaExplored = areaToExplore.calculateTotalAreaExplored();
+		}
+		return totalAreaExplored;
+	}
 
 }

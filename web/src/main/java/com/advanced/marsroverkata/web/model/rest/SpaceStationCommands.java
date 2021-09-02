@@ -1,4 +1,4 @@
-package com.advanced.marsroverkata.dto;
+package com.advanced.marsroverkata.web.model.rest;
 
 import java.io.Serializable;
 import java.util.ArrayList;

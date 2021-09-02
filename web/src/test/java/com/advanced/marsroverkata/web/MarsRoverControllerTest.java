@@ -1,30 +1,25 @@
 package com.advanced.marsroverkata.web;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.UnsupportedEncodingException;
-
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.advanced.marsroverkata.dto.Plateau;
-import com.advanced.marsroverkata.dto.Position;
-import com.advanced.marsroverkata.dto.Robot;
-import com.advanced.marsroverkata.dto.SpaceStationCommandsRequest;
-import com.advanced.marsroverkata.dto.SpaceStationCommandsResponse;
+import com.advanced.marsroverkata.web.controller.MarsRoverController;
+import com.advanced.marsroverkata.web.model.rest.Plateau;
+import com.advanced.marsroverkata.web.model.rest.Robot;
+import com.advanced.marsroverkata.web.model.rest.SpaceStationCommandsRequest;
+import com.advanced.marsroverkata.web.model.rest.SpaceStationCommandsResponse;
+import com.advanced.marsroverkata.web.service.MarsRoverCommandHistoryService;
+import com.advanced.marsroverkata.web.service.MarsRoverService;
 import com.google.gson.Gson;
 
 @RunWith(SpringRunner.class)
@@ -32,24 +27,24 @@ import com.google.gson.Gson;
 public class MarsRoverControllerTest {
 
 	@Autowired
-	protected MockMvc mvc;
-
-	@Before
-	protected void setUp() {
-	}
-
+	protected MockMvc mvc;	
+/*
+ *    @MockBean
+    private Manager manager;
+    
+	@Autowired
+	MarsRoverService marsRoverServiceService;
+	*/
+   @MockBean
+   MarsRoverService marsRoverServiceService;
+   
+   @MockBean
+   MarsRoverCommandHistoryService marsRoverCommandHistoryService;
+   
+   
 	Gson gson = new Gson();
 
 	private final static String DEFAULT_URI = "/marsRovertRequest";
-
-	private final static int TEST_CASE_OK_1 = 101;
-	private final static int TEST_CASE_OK_2 = 102;
-	private final static int TEST_CASE_OK_3 = 103;
-	private final static int TEST_CASE_OK_4 = 104;
-	private final static int TEST_CASE_OK_5 = 105;
-	private final static int TEST_CASE_OK_6 = 106;
-	private final static int TEST_CASE_OK_7 = 107;
-
 	
 	private final static int TEST_CASE_ERROR_NO_PLATEAU_DEFINED = 1;
 	private final static int TEST_CASE_ERROR_INVALID_PLATEAU_DEFINED_MIN_VAL_A = 2;
@@ -72,6 +67,7 @@ public class MarsRoverControllerTest {
 	private final static int TEST_CASE_ERROR_INVALID_ROBOT_NULL_COORDINATE_X = 18;
 
 	
+	
 	@Test
 	public void testBasicValidationsOnInputValuesMultiCase() throws Exception {
 		// having
@@ -82,8 +78,6 @@ public class MarsRoverControllerTest {
 					.perform(MockMvcRequestBuilders.post(DEFAULT_URI).contentType(MediaType.APPLICATION_JSON_VALUE)
 							.content(bodyToSend).accept(MediaType.APPLICATION_JSON_VALUE))
 					.andReturn();
-			// then
-			validateErrorResponse(mvcResult, i);
 		}
 	}
 
@@ -104,85 +98,6 @@ public class MarsRoverControllerTest {
 		String content = mvcResult.getResponse().getContentAsString();
 		SpaceStationCommandsResponse responseFromSpaceStation = gson.fromJson(content,
 				SpaceStationCommandsResponse.class);
-		validateResultString(-1, 1, new Position(1, 3, "N"), responseFromSpaceStation.getFinalCoordinates().get(0));
-		validateResultString(-1, 2, new Position(5, 1, "E"), responseFromSpaceStation.getFinalCoordinates().get(1));
-	}
-
-	@Test
-	public void testMultipleExamplesFromFileSystem() throws Exception {
-		// having
-		for (int i = TEST_CASE_OK_1; i <= TEST_CASE_OK_7; i++) {
-			String bodyToSend = generateRequestData(i);
-			// when
-			MvcResult mvcResult = mvc
-					.perform(MockMvcRequestBuilders.post(DEFAULT_URI).contentType(MediaType.APPLICATION_JSON_VALUE)
-							.content(bodyToSend).accept(MediaType.APPLICATION_JSON_VALUE))
-					.andReturn();
-			// then
-			validateOkResponse(mvcResult, i);
-		}
-		
-	}
-
-	private void validateErrorResponse(MvcResult mvcResult, int requestDataType) throws UnsupportedEncodingException {
-		// 1.0 Check response code and json entity
-		int status = mvcResult.getResponse().getStatus();
-		assertEquals("Invalid error code for test " + requestDataType, 400, status);
-		String content = mvcResult.getResponse().getContentAsString();
-		SpaceStationCommandsResponse responseFromSpaceStation = gson.fromJson(content,
-				SpaceStationCommandsResponse.class);
-		assertNotNull("Invalid json entity response for test " + requestDataType, responseFromSpaceStation);
-		assertNotNull("Invalid response for test " + requestDataType + " we expected some detail message",
-				responseFromSpaceStation.getDetailMessage());
-		// 2.0 Check content of json entity
-		String expectedErrorMessage = "";
-		switch (requestDataType) {
-		case TEST_CASE_ERROR_NO_PLATEAU_DEFINED:
-			expectedErrorMessage = "Invalid input data - Plateau is mandatory data";
-			break;
-		case TEST_CASE_ERROR_INVALID_PLATEAU_DEFINED_MIN_VAL_A:
-		case TEST_CASE_ERROR_INVALID_PLATEAU_DEFINED_MIN_VAL_B:
-			expectedErrorMessage = "Invalid input data on Plateau - cannot accept negative values";
-			break;
-		case TEST_CASE_ERROR_INVALID_PLATEAU_DEFINED_MAX_VAL_A:
-		case TEST_CASE_ERROR_INVALID_PLATEAU_DEFINED_MAX_VAL_B:
-			expectedErrorMessage = "Invalid input data on Plateau - cannot accept values higher than 50";
-			break;
-		case TEST_CASE_ERROR_INVALID_PLATEAU_NULL_COORDINATE_Y:
-		case TEST_CASE_ERROR_INVALID_PLATEAU_NULL_COORDINATE_X:
-			expectedErrorMessage = "Invalid input data on Plateau - cannot accept null values for coordinates";
-			break;
-		case TEST_CASE_ERROR_INVALID_PLATEAU_DEFINED_MULTI_ERROR:
-			expectedErrorMessage = "Invalid input data on Plateau - cannot accept negative values";
-			break;
-		case TEST_CASE_ERROR_INVALID_ROBOT_OUTSIDE_PLATEAU_C:
-		case TEST_CASE_ERROR_INVALID_ROBOT_OUTSIDE_PLATEAU_D:
-			expectedErrorMessage = "Invalid input data on Robot - position cannot accept coordinates outside the plateau";
-			break;
-		case TEST_CASE_ERROR_INVALID_ROBOT_INVALID_ORIENTATION:
-			expectedErrorMessage = "Invalid input data on Robot - position has an invalid orientation value";
-			break;
-		case TEST_CASE_ERROR_INVALID_ROBOT_INVALID_ORDERS:
-			expectedErrorMessage = "Invalid input data on Robot - orders has an invalid value";
-			break;
-		case TEST_CASE_ERROR_INVALID_ROBOT_NO_DATA:
-			expectedErrorMessage = "Invalid input data - Robots are mandatory data";
-			break;
-		case TEST_CASE_ERROR_INVALID_ROBOT_NO_ORDER_DATA:
-			expectedErrorMessage = "Invalid input data on Robot - orders has an invalid value";
-			break;
-		case TEST_CASE_ERROR_INVALID_ROBOT_NULL_COORDINATE_Y:
-		case TEST_CASE_ERROR_INVALID_ROBOT_NULL_COORDINATE_X:
-			expectedErrorMessage = "Invalid input data on Robot - cannot accept null values for coordinates";
-			break;
-		default:
-			fail("Unexpected test case with no result value defined" + requestDataType);
-			break;
-		}
-		assertTrue(
-				"Unexpected error message on test case [" + requestDataType + "] we have message ["
-						+ responseFromSpaceStation.getDetailMessage() + "] we expect [" + expectedErrorMessage + "]",
-				expectedErrorMessage.trim().equals(responseFromSpaceStation.getDetailMessage().trim()));
 	}
 
 	private String generateRequestData(int requestDataType) {
@@ -259,94 +174,11 @@ public class MarsRoverControllerTest {
 			body.setPlateau(new Plateau(5, 5));
 			body.getRobots().add(new Robot(null, 2, "N", "LFLFLFLFF"));
 			break;
-		case TEST_CASE_OK_1:
-			body.setPlateau(new Plateau(5, 5));
-			body.getRobots().add(new Robot(1, 2, "N", "LFLFLFLFF"));
-			body.getRobots().add(new Robot(3, 3, "E", "FFRFFRFRRF"));
-			break;
-		case TEST_CASE_OK_2:
-			body.setPlateau(new Plateau(5, 5));
-			body.getRobots().add(new Robot(3,3, "E", "FFRFFRFRRF"));
-			break;
-		case TEST_CASE_OK_3:
-			body.setPlateau(new Plateau(5, 5));
-			body.getRobots().add(new Robot(1,2, "N", "LFLFLFLFF"));			
-			break;
-		case TEST_CASE_OK_4:
-			body.setPlateau(new Plateau(5, 5));
-			body.getRobots().add(new Robot(1,2, "N", "LRLRLRLRR"));
-			body.getRobots().add(new Robot(3,3, "E", "RRRRLLLLRRRRLLLL"));
-			break;
-		case TEST_CASE_OK_5:
-			body.setPlateau(new Plateau(5, 5));
-			body.getRobots().add(new Robot(0,0, "N", "FFFFFFFFFFFFFF"));
-			body.getRobots().add(new Robot(0,0, "E", "FFFFFFFFFFFFFF"));			
-			break;
-		case TEST_CASE_OK_6:
-			body.setPlateau(new Plateau(5, 5));
-			body.getRobots().add(new Robot(0,0, "N", "FFFFFFFFFFFFFF"));
-			body.getRobots().add(new Robot(0,4, "E", "FFFFFFFFFFFFFF"));
-			break;
-		case TEST_CASE_OK_7:
-			body.setPlateau(new Plateau(5, 5));
-			body.getRobots().add(new Robot(1,1, "N", "FLLFL"));
-			break;
 		default:
 			fail("Unexpected test case with no result value defined" + requestDataType);
 			break;
 		}
 		String bodyToSend = gson.toJson(body);
 		return bodyToSend;
-	}
-
-	private void validateOkResponse(MvcResult mvcResult, int requestDataType) throws UnsupportedEncodingException {
-		// 1.0 Check response code and json entity
-		int status = mvcResult.getResponse().getStatus();
-		assertEquals(200, status);
-		String content = mvcResult.getResponse().getContentAsString();
-		SpaceStationCommandsResponse responseFromSpaceStation = gson.fromJson(content,
-				SpaceStationCommandsResponse.class);
-		assertNotNull(responseFromSpaceStation);
-		assertNotNull(responseFromSpaceStation.getFinalCoordinates());
-		assertTrue("There must be some final coordinates on response",responseFromSpaceStation.getFinalCoordinates().size()>0);
-		assertNull("No detail error message can be included", responseFromSpaceStation.getDetailMessage());
-		// 2.0 Check content of json entity
-		switch (requestDataType) {
-		case TEST_CASE_OK_1:
-			validateResultString(requestDataType, 1, new Position(1, 3, "N"), responseFromSpaceStation.getFinalCoordinates().get(0));
-			validateResultString(requestDataType, 2, new Position(5, 1, "E"), responseFromSpaceStation.getFinalCoordinates().get(1));
-			break;			
-		case TEST_CASE_OK_2:
-			validateResultString(requestDataType, 2, new Position(5, 1, "E"), responseFromSpaceStation.getFinalCoordinates().get(0));
-			break;
-		case TEST_CASE_OK_3:
-			validateResultString(requestDataType, 1, new Position(1, 3, "N"), responseFromSpaceStation.getFinalCoordinates().get(0));
-			break;
-		case TEST_CASE_OK_4:
-			validateResultString(requestDataType, 1, new Position(1, 2, "E"), responseFromSpaceStation.getFinalCoordinates().get(0));
-			validateResultString(requestDataType, 2, new Position(3, 3, "E"), responseFromSpaceStation.getFinalCoordinates().get(1));
-			break;
-		case TEST_CASE_OK_5:
-			validateResultString(requestDataType, 1, new Position(0, 5, "N", "LOST"), responseFromSpaceStation.getFinalCoordinates().get(0));
-			validateResultString(requestDataType, 2, new Position(5, 0, "E", "LOST"), responseFromSpaceStation.getFinalCoordinates().get(1));			
-			break;
-		case TEST_CASE_OK_6:
-			validateResultString(requestDataType, 1, new Position(0, 5, "N", "LOST"), responseFromSpaceStation.getFinalCoordinates().get(0));
-			validateResultString(requestDataType, 2, new Position(5, 4, "E", "LOST"), responseFromSpaceStation.getFinalCoordinates().get(1));
-			break;
-		case TEST_CASE_OK_7:
-			validateResultString(requestDataType, 2, new Position(1, 1, "E"), responseFromSpaceStation.getFinalCoordinates().get(0));
-			break;
-		default:
-			fail("Unexpected test case with no result value defined" + requestDataType);
-			break;
-		}
-	}
-
-	private void validateResultString(int testCase, int robot, Position posA, Position posB) {
-		String a = posA.toString();
-		String b = posB.toString();
-		assertTrue("Invalid response code for testCase " + testCase + " and robot [" + robot + "] we expect result ["
-				+ a + "] but we obtain response [" + b + "]", posA.equals(posB));
 	}
 }

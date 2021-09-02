@@ -12,6 +12,7 @@ public class Plateau {
 	private static int OCUPIED_VALUE = 99;
 	private static int LOST_ROVERT_VALUE = 98;
 	private static int FREE_VALUE = 0;
+	private static int VISITED_VALUE = 1;
 
 	/**
 	 * @param maxXPos
@@ -30,7 +31,7 @@ public class Plateau {
 		x++;
 		y++;
 		if (x <= this.maxXPos && x >= 0 && y <= this.maxYPos && y >= 0) {
-			Plateau.colisions[x][y] = Plateau.FREE_VALUE;
+			Plateau.colisions[x][y] = Plateau.VISITED_VALUE;
 		}
 	}
 
@@ -72,5 +73,18 @@ public class Plateau {
 		}
 		return isValid;
 	}
+	
+	public int calculateTotalAreaExplored() {
+		long totalAreaExplored = 0;
+		for(int x= 1; x< this.maxXPos;x++) {
+			for(int y= 1; y< this.maxYPos;y++) {
+				if(colisions[x][y] == VISITED_VALUE || colisions[x][y] == OCUPIED_VALUE)
+				totalAreaExplored ++;
+			}
+		}
+		return (int)totalAreaExplored;
+	}
+	
+	
 
 }

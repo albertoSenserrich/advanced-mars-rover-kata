@@ -1,18 +1,17 @@
-package com.advanced.marsroverkata.web;
+package com.advanced.marsroverkata.web.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.advanced.marsroverkata.dto.Robot;
-import com.advanced.marsroverkata.dto.SpaceStationCommandsRequest;
-import com.advanced.marsroverkata.dto.SpaceStationCommandsResponse;
-import com.advanced.marsroverkata.services.MarsRoverService;
-import com.advanced.marsroverkata.services.impl.MarsRoverServiceImpl;
+import com.advanced.marsroverkata.web.model.rest.Robot;
+import com.advanced.marsroverkata.web.model.rest.SpaceStationCommandsRequest;
+import com.advanced.marsroverkata.web.model.rest.SpaceStationCommandsResponse;
+import com.advanced.marsroverkata.web.service.MarsRoverService;
+//import com.advanced.marsroverkata.web.service.MarsRoverService;
+//import com.advanced.marsroverkata.web.service.impl.MarsRoverServiceImpl;
 import com.google.gson.Gson;
 import com.marsroverkata.controlstation.constants.enums.ActionsType;
 import com.marsroverkata.controlstation.constants.enums.OrientationType;
@@ -23,14 +22,18 @@ public class MarsRoverController {
 	Gson gson = new Gson();
 
 	
+
+	@Autowired
+	MarsRoverService marsRoverServiceService;
 	
+    
 	@PostMapping("/marsRovertRequest")
 	ResponseEntity<?> newRequest(@RequestBody String requestContent) {
 		SpaceStationCommandsResponse rsl;
+		System.out.print(requestContent);
 		SpaceStationCommandsRequest request = gson.fromJson(requestContent, SpaceStationCommandsRequest.class);
 		String errorMsg = isValidRequest(request);
 		if (errorMsg == null) {
-			MarsRoverService marsRoverServiceService = new MarsRoverServiceImpl();
 			rsl = marsRoverServiceService.processMarsRoverOrders(request);
 			if(rsl != null && rsl.getDetailMessage() == null) {
 				return ResponseEntity.ok().body(rsl);
@@ -43,17 +46,7 @@ public class MarsRoverController {
 			return ResponseEntity.badRequest().body(rsl);
 		}
 	}
-
-	@GetMapping("/marsRovertRequest")
-	ResponseEntity<?> healthCheck() {
-		return ResponseEntity.ok("Space station on-line");
-	}
-
-	@DeleteMapping("/marsRovertRequest")
-	void clearCache(@PathVariable Long id) {
-//	    repository.deleteById(id);
-	}
-
+	
 	private String isValidRequest(SpaceStationCommandsRequest request) {
 		String rsl = null;
 		if (request == null)

@@ -1,4 +1,4 @@
-package com.advanced.marsroverkata.dto;
+package com.advanced.marsroverkata.web.model.rest;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -13,6 +13,7 @@ public class SpaceStationCommandsResponse  implements Serializable{
 	private static final long serialVersionUID = -1403793902149633086L;
 	private List<Position> finalCoordinates = new LinkedList<Position>();
 	String detailMessage;
+	Long id;
 	
 	
 	public List<Position> getFinalCoordinates() {
@@ -31,11 +32,20 @@ public class SpaceStationCommandsResponse  implements Serializable{
 		super();
 		this.finalCoordinates = robots;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(detailMessage, finalCoordinates);
+		return Objects.hash(detailMessage, finalCoordinates, id);
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -45,8 +55,8 @@ public class SpaceStationCommandsResponse  implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		SpaceStationCommandsResponse other = (SpaceStationCommandsResponse) obj;
-		return Objects.equals(detailMessage, other.detailMessage) && Objects.equals(finalCoordinates, other.finalCoordinates);
+		return Objects.equals(detailMessage, other.detailMessage)
+				&& Objects.equals(finalCoordinates, other.finalCoordinates) && Objects.equals(id, other.id);
 	}
 	
-
 }
