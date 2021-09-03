@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+/**
+ * @author Alberto Senserrich Montals
+ *
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "x", "y", "orientation" })
 @Generated("jsonschema2pojo")
@@ -47,48 +51,14 @@ public class Position implements Serializable {
 		return status;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	@JsonProperty("x")
-	public void setX(Integer x) {
-		this.x = x;
-	}
-
-	public Position withX(Integer x) {
-		this.x = x;
-		return this;
-	}
-
 	@JsonProperty("y")
 	public Integer getY() {
 		return y;
 	}
 
-	@JsonProperty("y")
-	public void setY(Integer y) {
-		this.y = y;
-	}
-
-	public Position withY(Integer y) {
-		this.y = y;
-		return this;
-	}
-
 	@JsonProperty("orientation")
 	public String getOrientation() {
 		return orientation;
-	}
-
-	@JsonProperty("orientation")
-	public void setOrientation(String orientation) {
-		this.orientation = orientation;
-	}
-
-	public Position withOrientation(String orientation) {
-		this.orientation = orientation;
-		return this;
 	}
 
 	@Override

@@ -77,17 +77,19 @@ public class FileRequestControler implements RequestControler{
 		List<String> response = new LinkedList<String>();
 		File folder = new File(baseInputRequestPath);
 		if(folder != null && folder.exists()) {
-			for (final File fileEntry : folder.listFiles()) {
-				if (!fileEntry.isDirectory()) {
-					String completeFileName = fileEntry.getName();
-					int posExt = completeFileName.lastIndexOf(".");
-					if(posExt != completeFileName.length()){
-						String extension = completeFileName.substring(posExt+1, completeFileName.length());
-						if(GlobalConstants.FILE_EXTENSION_FOR_PENDING_REQUEST.equals(extension)){
-							response.add(completeFileName.substring(0, posExt));
-						}	
-					}
-				} 
+			if(folder.listFiles()!= null && folder.listFiles().length>0) {
+				for (final File fileEntry : folder.listFiles()) {
+					if (!fileEntry.isDirectory()) {
+						String completeFileName = fileEntry.getName();
+						int posExt = completeFileName.lastIndexOf(".");
+						if(posExt != completeFileName.length()){
+							String extension = completeFileName.substring(posExt+1, completeFileName.length());
+							if(GlobalConstants.FILE_EXTENSION_FOR_PENDING_REQUEST.equals(extension)){
+								response.add(completeFileName.substring(0, posExt));
+							}	
+						}
+					} 
+				}
 			}
 		}
 		

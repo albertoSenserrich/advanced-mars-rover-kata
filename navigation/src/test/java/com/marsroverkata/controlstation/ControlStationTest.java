@@ -18,7 +18,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.marsroverkata.controlstation.ControlStation;
 import com.marsroverkata.controlstation.constants.GlobalConstants;
 import com.marsroverkata.controlstation.exceptions.ControlStationInputDataException;
 import com.marsroverkata.controlstation.requestControlers.RequestControler;

@@ -19,12 +19,17 @@ import com.marsroverkata.controlstation.vehicles.MarsVehicle;
 import com.marsroverkata.controlstation.vehicles.components.ActualPosition;
 import com.marsroverkata.controlstation.vehicles.components.Plateau;
 
+
+/**
+ * @author Alberto Senserrich Montals
+ *
+ */
 @Service
 public class MarsRoverService {
 
 
 	@Autowired
-	MarsRoverCommandHistoryService marsRoverComandHistoryService;
+	protected MarsRoverCommandHistoryService marsRoverComandHistoryService;
 	
 	public SpaceStationCommandsResponse processMarsRoverOrders(SpaceStationCommandsRequest request) {
 		// 1.0 Init base data and convert in in order perform calculations
@@ -108,10 +113,8 @@ public class MarsRoverService {
 			if(totalAreaExplored != null) {
 				dataToSave.setExploredSectors(totalAreaExplored);			
 			}
-			if(marsRoverComandHistoryService != null) {
 				marsRoverComandHistoryService.saveOrUpdate(dataToSave);
 				response.setId(dataToSave.getId());
-			}
 		}
 	}
 	

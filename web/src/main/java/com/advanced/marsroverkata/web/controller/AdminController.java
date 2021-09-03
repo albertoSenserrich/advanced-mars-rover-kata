@@ -10,6 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.advanced.marsroverkata.web.model.rest.ExplorationStatisticsResponse;
 import com.advanced.marsroverkata.web.service.MarsRoverService;
 
+
+/**
+ * @author Alberto Senserrich Montals
+ *
+ */
 @RestController
 public class AdminController {
 
@@ -29,6 +34,9 @@ public class AdminController {
 	@GetMapping("/adminService/statistics")
 	ResponseEntity<?> getMetaDataFromAllRequest() {
 		ExplorationStatisticsResponse response = marsRoverService.getMetaDataFromAllRequest();
+		if(response == null) {
+			 response = new ExplorationStatisticsResponse("No data aviable");	
+		}
 		if(response.getDetailMessage() == null) {
 			return ResponseEntity.ok().body(response);
 		}else {
@@ -39,6 +47,9 @@ public class AdminController {
 	@GetMapping("/adminService/statistics/{id}")
 	ResponseEntity<?> getMetaDataFromOneRequest(@PathVariable Integer id) {
 		ExplorationStatisticsResponse response = marsRoverService.getMetaDataFromOneRequest(id);
+		if(response == null) {
+			 response = new ExplorationStatisticsResponse("No data aviable");	
+		}
 		if(response.getDetailMessage() == null) {
 			return ResponseEntity.ok().body(response);
 		}else {

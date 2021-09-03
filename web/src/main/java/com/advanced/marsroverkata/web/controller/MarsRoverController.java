@@ -16,6 +16,11 @@ import com.google.gson.Gson;
 import com.marsroverkata.controlstation.constants.enums.ActionsType;
 import com.marsroverkata.controlstation.constants.enums.OrientationType;
 
+
+/**
+ * @author Alberto Senserrich Montals
+ *
+ */
 @RestController
 public class MarsRoverController {
 
@@ -70,8 +75,6 @@ public class MarsRoverController {
 				for (Robot robotElem : request.getRobots()) {
 					if (robotElem.getPosition() != null) {
 						if (robotElem.getPosition().getX() ==  null || robotElem.getPosition().getY() == null) {
-							rsl = "Invalid input data on Robot - cannot accept null values for coordinates";
-						}else if (robotElem.getPosition().getX() < 0 || robotElem.getPosition().getY() < 0) {
 							rsl = "Invalid input data on Robot - cannot accept null values for coordinates";
 						}else if (robotElem.getPosition().getX() < 0 || robotElem.getPosition().getY() < 0) {
 							rsl = "Invalid input data on Robot - position cannot accept negative values";

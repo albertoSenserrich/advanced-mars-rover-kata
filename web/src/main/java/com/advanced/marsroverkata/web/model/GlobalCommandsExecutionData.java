@@ -9,6 +9,10 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+/**
+ * @author Alberto Senserrich Montals
+ *
+ */
 @Entity(name="MARS_GLOBAL_COMMAND")
 @Table
 public class GlobalCommandsExecutionData {

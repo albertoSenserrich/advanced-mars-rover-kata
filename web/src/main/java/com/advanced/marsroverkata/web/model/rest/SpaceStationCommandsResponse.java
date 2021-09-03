@@ -5,6 +5,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author Alberto Senserrich Montals
+ *
+ */
 public class SpaceStationCommandsResponse  implements Serializable{
 	
 	/**
@@ -41,22 +45,4 @@ public class SpaceStationCommandsResponse  implements Serializable{
 		this.id = id;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(detailMessage, finalCoordinates, id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SpaceStationCommandsResponse other = (SpaceStationCommandsResponse) obj;
-		return Objects.equals(detailMessage, other.detailMessage)
-				&& Objects.equals(finalCoordinates, other.finalCoordinates) && Objects.equals(id, other.id);
-	}
-	
 }

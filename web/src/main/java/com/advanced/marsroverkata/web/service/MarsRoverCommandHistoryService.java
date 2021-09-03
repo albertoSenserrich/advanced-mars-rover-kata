@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import com.advanced.marsroverkata.web.model.GlobalCommandsExecutionData;
 import com.advanced.marsroverkata.web.repository.MarsRoverCommandHistoryRepository;
 
+/**
+ * @author Alberto Senserrich Montals
+ *
+ */
 @Service
 public class MarsRoverCommandHistoryService {
 
