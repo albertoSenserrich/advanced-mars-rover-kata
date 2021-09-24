@@ -11,7 +11,7 @@ import com.marsroverkata.controlstation.exceptions.ControlStationInputDataExcept
 import com.marsroverkata.controlstation.requestControlers.RequestControler;
 import com.marsroverkata.controlstation.requestControlers.impl.FileRequestControler;
 import com.marsroverkata.controlstation.utils.CommandsParserUtils;
-import com.marsroverkata.controlstation.vehicles.LandRovert;
+import com.marsroverkata.controlstation.vehicles.MarsRover;
 import com.marsroverkata.controlstation.vehicles.MarsVehicle;
 import com.marsroverkata.controlstation.vehicles.components.ActualPosition;
 import com.marsroverkata.controlstation.vehicles.components.Plateau;
@@ -104,7 +104,7 @@ public class MarsControlStationExecutor implements ControlStationExecutor {
 			Plateau plateau = CommandsParserUtils.parsePlateau(orders.get(0));
 			for (int i = 1; i + 1 < orders.size(); i = i + 2) {
 				ActualPosition actualPoss = CommandsParserUtils.parseActualPosition(orders.get(i));
-				tmpVehicle = new LandRovert(actualPoss, plateau);
+				tmpVehicle = new MarsRover(actualPoss, plateau);
 				String commandsToExecute = orders.get(i + 1).trim();
 				if(commandsToExecute.length()<= GlobalConstants.MAX_SIZE_FOR_ORDERS) {
 					tmpVehicle.setOrdersToExecute(commandsToExecute);

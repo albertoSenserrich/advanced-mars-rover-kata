@@ -73,7 +73,7 @@ public abstract class MarsVehicle {
 		areaToExplore.markOcupiedSpace(x, y);
 	}
 	
-	public void markLostRovert(int x, int y) {
+	public void markLostRover(int x, int y) {
 		areaToExplore.markLostRover(x, y);
 	}
 	
@@ -81,8 +81,8 @@ public abstract class MarsVehicle {
 		areaToExplore.markFreeSpace(x, y);
 	}
 
-	public boolean isRovertLostOnCoordenates(int x, int y) {
-		return areaToExplore.isRovertLostOnCoordenates(x, y);
+	public boolean isRoverLostOnCoordenates(int x, int y) {
+		return areaToExplore.isRoverLostOnCoordenates(x, y);
 	}
 	
 	public boolean isCoordinateInsidePlateau(int xDestination, int yDestination) {

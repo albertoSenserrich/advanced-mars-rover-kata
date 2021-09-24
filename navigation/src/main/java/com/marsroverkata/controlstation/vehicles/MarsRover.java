@@ -10,10 +10,10 @@ import com.marsroverkata.controlstation.vehicles.components.Plateau;
  * @author Alberto Senserrich Montals
  *
  */
-public class LandRovert extends MarsVehicle{
+public class MarsRover extends MarsVehicle{
 
 	
-	public LandRovert(ActualPosition positon,Plateau areaToExplore) {
+	public MarsRover(ActualPosition positon,Plateau areaToExplore) {
 		super(positon,areaToExplore);
 	
 	}
@@ -47,7 +47,7 @@ public class LandRovert extends MarsVehicle{
 						break; 
 					}	
 				}else {
-					//something has happened during execution and landRovert neds to report to space station some incident
+					//something has happened during execution and marsRover neds to report to space station some incident
 					return;
 				}
 			}			
@@ -83,10 +83,10 @@ public class LandRovert extends MarsVehicle{
 		//2.0 Check if the vehicle is going to exit the plateau (area to explore)
 		if(!super.isCoordinateInsidePlateau(xDestination, yDestination)) {
 			isValid = false;
-			if(!super.isRovertLostOnCoordenates(xDestination, yDestination)){
-				markLostRovert(xDestination, yDestination);
+			if(!super.isRoverLostOnCoordenates(xDestination, yDestination)){
+				markLostRover(xDestination, yDestination);
 				super.dataToReport = "LOST";
-				super.detailMessageToReport = "Abort movement, rovert is going to exit the plateau  keep actual positon ["+super.getPosition().getxPos()+"]["+super.getPosition().getyPos()+"]"; 
+				super.detailMessageToReport = "Abort movement, rover is going to exit the plateau  keep actual positon ["+super.getPosition().getxPos()+"]["+super.getPosition().getyPos()+"]"; 
 			}
 		}		
 		//3.0 Check collisions before movemen

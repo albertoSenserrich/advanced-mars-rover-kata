@@ -45,7 +45,7 @@ public class MarsRoverControllerTest {
 
 	Gson gson = new Gson();
 
-	private final static String DEFAULT_URI = "/marsRovertRequest";
+	private final static String DEFAULT_URI = "/marsRoverRequest";
 
 	private final static int TEST_CASE_ERROR_NO_PLATEAU_DEFINED = 1;
 	private final static int TEST_CASE_ERROR_INVALID_PLATEAU_DEFINED_MIN_VAL_A = 2;

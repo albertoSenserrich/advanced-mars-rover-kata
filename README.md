@@ -73,48 +73,18 @@ word "LOST" should be printed after the position and orientation.
 		2 3 S
 
 
-# Minimum requirements
-* The app should properly work with at least the example input.
-* The app should be hosted in a   GitHub public repository  .
-     * It should have a README.md describing the product and explaining how to
-run it.
 
 
-# Features hints and nice to have
-The solution to the described problem should be the core of the business logic
-implemented by your Java/Kotlin app but Guidesmiths is not setting any limits
-regarding the functionalities and complexity of the product that you are going to
-implement, this is something that we will leave up to you. 
-For this reason here are a couple of hints and ideas:
+# Features 
+This project has 2 submodules
+* Navigation 
+* Web
 
-*  Libraries and third party code. You can use as many libraries as you want.
-*  Testing. You can go for:
-    *    Unit / Integration / End2End / all of them.
-    *    Mocha / Jest / Any other interesting testing framework.
-  * Application running (execute the process over a given input). You can for:
-     * Simple script approach.
-     *  REST API approach.
-     *  CLI approach.
-     *  All of the above.
-*  Persistence layer.
-*  You can stores somewhere a lot of different info:
-    * Inputs, output, etc.
-    * You can even decide to store extra information calculated from the outcome of the execution (e.g. lost robots, explored surface,
-	etc.)
+you can execute the feature using anyone of them. Please  check the readme file of any of them in order to retrive more information.
 
-*  You can go for any of the following approaches
-     * Simple .json / .txt / ... file.
-     * Relational / Non-Relational DB.
-	
-* Any other interesting approach.
+## Navigation module
+Includes a jar project that can read files from disc as input and generate result files with the result of the operations
 
-*  Insight:
-* You can expose some interesting information using API endpoints
-     * On the fly calculated information
-     * Previously stored information (see above e.g. lost robots, explored
-surface, etc.)
+## Web
+Includes a spring boot project with 2 API rest in order to execute the commands and retrieve useful information
 
-* Shipping. You can go for:
-     *  Docker.
-     * Deploy it somewhere (heroku / your kubernetes cluster / any other
-	interesting place).

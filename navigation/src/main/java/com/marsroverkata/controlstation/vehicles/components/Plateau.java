@@ -10,8 +10,7 @@ public class Plateau {
 	private int maxYPos;
 	private static int[][] colisions;
 	private static int OCUPIED_VALUE = 99;
-	private static int LOST_ROVERT_VALUE = 98;
-	private static int FREE_VALUE = 0;
+	private static int LOST_ROVER_VALUE = 98;
 	private static int VISITED_VALUE = 1;
 
 	/**
@@ -40,7 +39,7 @@ public class Plateau {
 		x++;
 		y++;
 //		if (x <= this.maxXPos && x >= 0 && y <= this.maxYPos && y >= 0) {
-			Plateau.colisions[x][y] = Plateau.LOST_ROVERT_VALUE;
+			Plateau.colisions[x][y] = Plateau.LOST_ROVER_VALUE;
 //		}
 	}
 	
@@ -52,10 +51,10 @@ public class Plateau {
 //		}
 	}
 
-	public boolean isRovertLostOnCoordenates(int x, int y) {
+	public boolean isRoverLostOnCoordenates(int x, int y) {
 		x++;
 		y++;
-		return Plateau.LOST_ROVERT_VALUE == Plateau.colisions[x][y];
+		return Plateau.LOST_ROVER_VALUE == Plateau.colisions[x][y];
 //		if(x<=this.maxXPos && x>=0 && y<=this.maxYPos && y>=0){
 //		}	else{
 //			return false;

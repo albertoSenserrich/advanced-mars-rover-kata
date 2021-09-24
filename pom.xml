@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.advanced.marsroverkata</groupId>
-    <artifactId>advanced-land-rovert</artifactId>
+    <artifactId>advanced-mars-rover</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
     

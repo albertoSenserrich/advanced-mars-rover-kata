@@ -32,7 +32,7 @@ public class MarsRoverController {
 	MarsRoverService marsRoverServiceService;
 	
     
-	@PostMapping("/marsRovertRequest")
+	@PostMapping("/marsRoverRequest")
 	ResponseEntity<?> newRequest(@RequestBody String requestContent) {
 		SpaceStationCommandsResponse rsl;
 		System.out.print(requestContent);

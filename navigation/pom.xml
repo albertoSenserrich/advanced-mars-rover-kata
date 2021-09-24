@@ -4,7 +4,7 @@
 	
 	<parent>
 		<groupId>com.advanced.marsroverkata</groupId>
-	    <artifactId>advanced-land-rovert</artifactId>
+  		<artifactId>advanced-mars-rover</artifactId>
 	    <version>1.0.0</version>
 	</parent>
     

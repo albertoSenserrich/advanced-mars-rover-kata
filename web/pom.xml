@@ -5,11 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.advanced.marsroverkata</groupId>
-		<artifactId>advanced-land-rovert</artifactId>
+		<artifactId>advanced-mars-rover</artifactId>
 		<version>1.0.0</version>
 	</parent>
 	<groupId>com.advanced.marsroverkata.web</groupId>
-	<artifactId>advanced-mars-rover</artifactId>
+	<artifactId>rest-api-mars-rover</artifactId>
 	<version>1.0.0</version>
 	<name>advanced-mars-rover</name>
 	<description>Demo project for mars rover kata with additional features</description>
@@ -22,7 +22,7 @@
 			<artifactId>navigation</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		<!--  Spring -->
+		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -43,13 +43,13 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
-		</dependency>		
-		<!--  Utilities -->
+		</dependency>
+		<!-- Utilities -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>${gson.version}</version>
-		</dependency>		
+		</dependency>
 		<!-- Persistency -->
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -63,12 +63,12 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
-		</dependency>		
-		 <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>${mockito.version}</version>
-        </dependency>		
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

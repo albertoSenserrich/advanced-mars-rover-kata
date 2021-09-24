@@ -14,7 +14,7 @@ import com.advanced.marsroverkata.web.model.rest.SpaceStationCommandsRequest;
 import com.advanced.marsroverkata.web.model.rest.SpaceStationCommandsResponse;
 import com.marsroverkata.controlstation.ControlStation;
 import com.marsroverkata.controlstation.constants.enums.OrientationType;
-import com.marsroverkata.controlstation.vehicles.LandRovert;
+import com.marsroverkata.controlstation.vehicles.MarsRover;
 import com.marsroverkata.controlstation.vehicles.MarsVehicle;
 import com.marsroverkata.controlstation.vehicles.components.ActualPosition;
 import com.marsroverkata.controlstation.vehicles.components.Plateau;
@@ -38,7 +38,7 @@ public class MarsRoverService {
 		for (Robot robotElem : request.getRobots()) {
 			ActualPosition position = new ActualPosition(robotElem.getPosition().getX(), robotElem.getPosition().getY(),
 					OrientationType.getById(robotElem.getPosition().getOrientation()));
-			LandRovert newVehicle = new LandRovert(position, areaToExplore2);
+			MarsRover newVehicle = new MarsRover(position, areaToExplore2);
 			newVehicle.setOrdersToExecute(robotElem.getOrders());
 			vehicles.add(newVehicle);
 		}
