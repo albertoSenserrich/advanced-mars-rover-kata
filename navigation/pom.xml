@@ -32,11 +32,11 @@
 <version>${log4j.version}</version>
 </dependency>
 
-<!-- Testing: keep JUnit4 for existing tests -->
+<!-- Testing: JUnit 5 for Spring Boot 3.x -->
 <dependency>
-<groupId>junit</groupId>
-<artifactId>junit</artifactId>
-<version>${junit4.version}</version>
+<groupId>org.junit.jupiter</groupId>
+<artifactId>junit-jupiter</artifactId>
+<version>${junit.version}</version>
 <scope>test</scope>
 </dependency>
 
@@ -51,11 +51,16 @@
 <plugins>
 <plugin>
 <artifactId>maven-compiler-plugin</artifactId>
-<version>3.10.1</version>
+<version>3.13.0</version>
 <configuration>
 <source>${maven.compiler.source}</source>
 <target>${maven.compiler.target}</target>
 </configuration>
+</plugin>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-surefire-plugin</artifactId>
+<version>3.1.2</version>
 </plugin>
 <plugin>
 <groupId>org.apache.maven.plugins</groupId>

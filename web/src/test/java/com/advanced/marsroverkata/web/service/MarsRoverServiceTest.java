@@ -1,21 +1,19 @@
 package com.advanced.marsroverkata.web.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.advanced.marsroverkata.web.AdvancedMarsRoverApplication;
 import com.advanced.marsroverkata.web.model.GlobalCommandsExecutionData;
@@ -31,7 +29,6 @@ import com.advanced.marsroverkata.web.model.rest.SpaceStationCommandsResponse;
  *
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = AdvancedMarsRoverApplication.class)
 public class MarsRoverServiceTest {
 
@@ -213,8 +210,9 @@ public class MarsRoverServiceTest {
 		assertNotNull(responseFromSpaceStation);
 		assertNotNull(responseFromSpaceStation);
 		assertNotNull(responseFromSpaceStation.getFinalCoordinates());
-		assertTrue("There must be some final coordinates on response",
-				responseFromSpaceStation.getFinalCoordinates().size() > 0);
+		assertTrue(responseFromSpaceStation.getFinalCoordinates().size() > 0);
+//		assertTrue("There must be some final coordinates on response",
+//				responseFromSpaceStation.getFinalCoordinates().size() > 0);
 		assertNull("No detail error message can be included", responseFromSpaceStation.getDetailMessage());
 		// 2.0 Check content of json entity
 		switch (requestDataType) {
@@ -261,9 +259,10 @@ public class MarsRoverServiceTest {
 	}
 
 	private void validateResultString(int testCase, int robot, Position posA, Position posB) {
-		String a = posA.toString();
-		String b = posB.toString();
-		assertTrue("Invalid response code for testCase " + testCase + " and robot [" + robot + "] we expect result ["
-				+ a + "] but we obtain response [" + b + "]", posA.equals(posB));
+//		String a = posA.toString();
+//		String b = posB.toString();
+		assertTrue(posA.equals(posB));
+//		assertTrue("Invalid response code for testCase " + testCase + " and robot [" + robot + "] we expect result ["
+//				+ a + "] but we obtain response [" + b + "]", posA.equals(posB));		
 	}
 }

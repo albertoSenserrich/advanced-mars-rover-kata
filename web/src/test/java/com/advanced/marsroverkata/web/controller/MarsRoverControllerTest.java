@@ -1,19 +1,19 @@
 package com.advanced.marsroverkata.web.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.UnsupportedEncodingException;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -30,7 +30,7 @@ import com.google.gson.Gson;
  * @author Alberto Senserrich Montals
  *
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @WebMvcTest(MarsRoverController.class)
 public class MarsRoverControllerTest {
 
@@ -215,13 +215,12 @@ public class MarsRoverControllerTest {
 	private void validateErrorResponse(MvcResult mvcResult, int requestDataType) throws UnsupportedEncodingException {
 		// 1.0 Check response code and json entity
 		int status = mvcResult.getResponse().getStatus();
-		assertEquals("Invalid error code for test " + requestDataType, 400, status);
+		assertEquals(400, status, "Invalid error code for test " + requestDataType);
 		String content = mvcResult.getResponse().getContentAsString();
 		SpaceStationCommandsResponse responseFromSpaceStation = gson.fromJson(content,
 				SpaceStationCommandsResponse.class);
-		assertNotNull("Invalid json entity response for test " + requestDataType, responseFromSpaceStation);
-		assertNotNull("Invalid response for test " + requestDataType + " we expected some detail message",
-				responseFromSpaceStation.getDetailMessage());
+		assertNotNull(responseFromSpaceStation, "Invalid json entity response for test " + requestDataType);
+		assertNotNull(responseFromSpaceStation.getDetailMessage(), "Invalid response for test " + requestDataType + " we expected some detail message");
 		// 2.0 Check content of json entity
 		String expectedErrorMessage = "";
 		switch (requestDataType) {
@@ -276,9 +275,11 @@ public class MarsRoverControllerTest {
 			fail("Unexpected test case with no result value defined" + requestDataType);
 			break;
 		}
-		assertTrue(
-				"Unexpected error message on test case [" + requestDataType + "] we have message ["
-						+ responseFromSpaceStation.getDetailMessage() + "] we expect [" + expectedErrorMessage + "]",
-				expectedErrorMessage.trim().equals(responseFromSpaceStation.getDetailMessage().trim()));
+		assertTrue(	expectedErrorMessage.trim().equals(responseFromSpaceStation.getDetailMessage().trim()));
+//		assertTrue(
+//				"Unexpected error message on test case [" + requestDataType + "] we have message ["
+//						+ responseFromSpaceStation.getDetailMessage() + "] we expect [" + expectedErrorMessage + "]",
+//				expectedErrorMessage.trim().equals(responseFromSpaceStation.getDetailMessage().trim()));		
+		
 	}
 }

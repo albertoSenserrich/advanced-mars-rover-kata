@@ -2,7 +2,7 @@ package com.advanced.marsroverkata.web.model.rest;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.annotation.Generated;
+import jakarta.annotation.Generated;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

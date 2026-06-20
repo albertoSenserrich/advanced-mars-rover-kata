@@ -8,6 +8,6 @@ class AdvancedMarsRoverApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println(getClass());
 	}
-
 }

@@ -1,8 +1,9 @@
 package com.marsroverkata.controlstation.requestControlers.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,9 +12,9 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.marsroverkata.controlstation.constants.GlobalConstants;
 import com.marsroverkata.controlstation.exceptions.ControlStationException;
@@ -44,7 +45,7 @@ public class FileRequestControlerTest {
 	private String VALID_PROCESS_ID_1_LINE_2 ="1 2 N";
 	private String VALID_PROCESS_ID_1_LINE_1 ="5 5";
 	
-	@After
+	@AfterEach
 	public void cleanUpAfterTest(){
 		File folder = new  File(TEMP_TEST_BASE_PATH); 
 		try {
@@ -54,7 +55,7 @@ public class FileRequestControlerTest {
 		} 
 	}
 	
-	@Before
+	@BeforeEach
 	public void beforeAnyTest(){
 		File folder = new  File(TEMP_TEST_BASE_PATH); 
 		if(!folder.exists()){
@@ -71,24 +72,28 @@ public class FileRequestControlerTest {
 		//then
 		String path = TEMP_TEST_BASE_PATH + VALID_PROCESS_ID_1+"."+ GlobalConstants.FILE_EXTENSION_FOR_PROCESSED_REQUEST;
 		File processedFile = new File(path);
-		assertTrue("Valid files cannot be processd",processedFile.exists());
+		assertTrue(processedFile.exists(), "Valid files cannot be processd");
 	}
 	
-	@Test(expected=ControlStationInputDataException.class)
+	@Test
 	public void markRequestProcessedInValid() throws ControlStationException{
 		//having
 		copyResourceToTempFolder(INVALID_PROCESS_EXTENSIOn_ID_1);
 		//when
 		//when
-		reqControler.markRequestProcessed(INVALID_PROCESS_ID_1);
+		assertThrows(ControlStationInputDataException.class, () -> {
+			reqControler.markRequestProcessed(INVALID_PROCESS_ID_1);
+		});
 	}
 
-	@Test(expected=ControlStationInputDataException.class)
+	@Test
 	public void  readINValidRequest() throws ControlStationException{
 		//having
 		copyResourceToTempFolder(INVALID_PROCESS_EXTENSIOn_ID_1);
 		//when
-		reqControler.readRequest(INVALID_PROCESS_EXTENSIOn_ID_1);
+		assertThrows(ControlStationInputDataException.class, () -> {
+			reqControler.readRequest(INVALID_PROCESS_EXTENSIOn_ID_1);
+		});
 		//then
 	}
 	
@@ -143,14 +148,16 @@ public class FileRequestControlerTest {
 	}	
 	
 
-	@Test(expected=ControlStationInputDataException.class)
+	@Test
 	public void processTwoTimesTheSameRequest() throws ControlStationException{
 		//having
 		copyResourceToTempFolder(VALID_PROCESS_ID_1+"."+GlobalConstants.FILE_EXTENSION_FOR_PENDING_REQUEST);
 		reqControler.markRequestProcessed(VALID_PROCESS_ID_1);
 		//when
 		//then
-		reqControler.markRequestProcessed(VALID_PROCESS_ID_1);
+		assertThrows(ControlStationInputDataException.class, () -> {
+			reqControler.markRequestProcessed(VALID_PROCESS_ID_1);
+		});
 	}
 	
 	private void copyResourceToTempFolder(String id){

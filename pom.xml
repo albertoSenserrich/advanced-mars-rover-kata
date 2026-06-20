@@ -12,26 +12,22 @@
     <properties>
         <!-- https://maven.apache.org/general.html#encoding-warning -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Target Java version for compilation. Set to Java 17 (LTS, compatible with Spring Boot 2.5.4) -->
-        <!-- Note: Java 25 requires Spring Boot 3.x migration (future task) -->
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <!-- Target Java version for compilation. Set to Java 21 (LTS, recommended for Spring Boot 3.x + Java 25) -->
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <!-- Logging: prefer Log4j2 over legacy Log4j 1.x -->
-        <log4j.version>2.20.0</log4j.version>
-        <!-- JUnit Jupiter (JUnit 5) -->
-        <junit.version>5.9.3</junit.version>
-        <!-- Mockito 5 (compatible with JUnit 5) -->
-        <mockito.version>5.5.0</mockito.version>
-        <!-- Byte Buddy 1.14.x (with experimental mode for Java 25) -->
-        <bytebuddy.version>1.14.12</bytebuddy.version>
+        <log4j.version>2.23.1</log4j.version>
+        <!-- JUnit Jupiter (JUnit 5) for Spring Boot 3.x -->
+        <junit.version>5.10.0</junit.version>
+        <!-- Mockito 5.x (compatible with JUnit 5 and Spring Boot 3.x) -->
+        <mockito.version>5.7.1</mockito.version>
 		
-        <!-- Keep a JUnit4 version for existing legacy tests while migrating to JUnit5 -->
-        <junit4.version>4.13.2</junit4.version>
         <modules.version>1.0.0</modules.version>
         <gson.version>2.10.1</gson.version>
-		<!-- Spring boot dependencies -->
-		<spring.boot.version>2.5.4</spring.boot.version>
-		<h2.version>1.4.200</h2.version>		
+		<!-- Spring boot 3.3.x: Major version upgrade with Java 21 LTS support -->
+		<spring.boot.version>3.3.3</spring.boot.version>
+		<!-- H2 2.x: Compatible with Spring Boot 3.x and Java 21 -->
+		<h2.version>2.2.224</h2.version>		
     </properties>
 
 	
@@ -43,30 +39,29 @@
  	<build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <useModulePath>false</useModulePath>
-                    <!-- Enable Byte Buddy experimental mode for Java 25 support -->
-                    <argLine>-Dnet.bytebuddy.experimental=true</argLine>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.1</version>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
             </plugin>
         </plugins>
     </build>
 
     <dependencyManagement>
         <dependencies>
-            <!-- Byte Buddy: explicitly set to 1.15.x for Java 25 support -->
             <dependency>
-                <groupId>net.bytebuddy</groupId>
-                <artifactId>byte-buddy</artifactId>
-                <version>${bytebuddy.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

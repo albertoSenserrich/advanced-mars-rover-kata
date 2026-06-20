@@ -1,8 +1,8 @@
 package com.marsroverkata.controlstation;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,9 +14,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.marsroverkata.controlstation.constants.GlobalConstants;
 import com.marsroverkata.controlstation.exceptions.ControlStationInputDataException;
@@ -69,7 +69,7 @@ public class ControlStationTest {
 	
 	
 	
-	@After
+	@AfterEach
 	public void cleanUpAfterTest(){
 		File folder = new  File(TEMP_TEST_BASE_PATH); 
 		try {
@@ -79,7 +79,7 @@ public class ControlStationTest {
 		} 
 	}
 	
-	@Before
+	@BeforeEach
 	public void beforeAnyTest(){
 		File folder = new  File(TEMP_TEST_BASE_PATH); 
 		if(!folder.exists()){

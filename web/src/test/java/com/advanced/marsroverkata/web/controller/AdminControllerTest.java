@@ -1,14 +1,14 @@
 package com.advanced.marsroverkata.web.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -25,7 +25,7 @@ import com.google.gson.Gson;
  * @author Alberto Senserrich Montals
  *
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @WebMvcTest(AdminController.class)
 public class AdminControllerTest {
 
@@ -83,7 +83,7 @@ public class AdminControllerTest {
 	public void testRetrieveStatisticsForOneEelem() throws Exception {
 		// having
 		// when
-		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(SATATISTICS_URI + "/" + 1)).andReturn();
+		MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.get(SATATISTICS_URI +"/{id}",  1L)).andReturn();
 		// then
 		assertEquals(HTTP_STATUS_ERROR, mvcResult.getResponse().getStatus());
 		checkResultMessage(mvcResult.getResponse().getContentAsString(), NO_DATA_FOUND_ERR_MESSAGE);
