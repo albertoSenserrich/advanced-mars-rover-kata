@@ -1,79 +1,87 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	
-	<parent>
-		<groupId>com.advanced.marsroverkata</groupId>
-  		<artifactId>advanced-mars-rover</artifactId>
-	    <version>1.0.0</version>
-	</parent>
-    
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>navigation</artifactId>
- 	<version>1.0.0</version>
-	<name>navigation-control</name>
-	<packaging>jar</packaging>
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<dependencies>
-		<!-- Replace legacy Log4j 1.x with Log4j2 API + Core -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-		<!-- Use JUnit Jupiter (JUnit 5) -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>    
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.10.1</version>
-				<configuration>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
-				</configuration>
-		    </plugin>		
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.1</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<transformers>
-								<transformer
-									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>com.marsroverkata.controlstation.ControlStation</mainClass>
-									<manifestEntries>
-										<Main-Class>com.marsroverkata.controlstation.ControlStation</Main-Class>
-										<Build-Number>1</Build-Number>
-									</manifestEntries>
-								</transformer>
-							</transformers>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+<parent>
+<groupId>com.advanced.marsroverkata</groupId>
+<artifactId>advanced-mars-rover</artifactId>
+<version>1.0.0</version>
+</parent>
+
+<modelVersion>4.0.0</modelVersion>
+<artifactId>navigation</artifactId>
+<version>1.0.0</version>
+<name>navigation-control</name>
+<packaging>jar</packaging>
+
+<dependencies>
+<!-- Logging: Log4j2 and bridge for legacy Log4j1 API -->
+<dependency>
+<groupId>org.apache.logging.log4j</groupId>
+<artifactId>log4j-api</artifactId>
+<version>${log4j.version}</version>
+</dependency>
+<dependency>
+<groupId>org.apache.logging.log4j</groupId>
+<artifactId>log4j-core</artifactId>
+<version>${log4j.version}</version>
+</dependency>
+<dependency>
+<groupId>org.apache.logging.log4j</groupId>
+<artifactId>log4j-1.2-api</artifactId>
+<version>${log4j.version}</version>
+</dependency>
+
+<!-- Testing: keep JUnit4 for existing tests -->
+<dependency>
+<groupId>junit</groupId>
+<artifactId>junit</artifactId>
+<version>${junit4.version}</version>
+<scope>test</scope>
+</dependency>
+
+<dependency>
+<groupId>org.apache.commons</groupId>
+<artifactId>commons-io</artifactId>
+<version>1.3.2</version>
+</dependency>
+</dependencies>
+
+<build>
+<plugins>
+<plugin>
+<artifactId>maven-compiler-plugin</artifactId>
+<version>3.10.1</version>
+<configuration>
+<source>${maven.compiler.source}</source>
+<target>${maven.compiler.target}</target>
+</configuration>
+</plugin>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-shade-plugin</artifactId>
+<version>2.1</version>
+<executions>
+<execution>
+<phase>package</phase>
+<goals>
+<goal>shade</goal>
+</goals>
+<configuration>
+<transformers>
+<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+<mainClass>com.marsroverkata.controlstation.ControlStation</mainClass>
+<manifestEntries>
+<Main-Class>com.marsroverkata.controlstation.ControlStation</Main-Class>
+<Build-Number>1</Build-Number>
+</manifestEntries>
+</transformer>
+</transformers>
+</configuration>
+</execution>
+</executions>
+</plugin>
+</plugins>
+</build>
+
 </project>
