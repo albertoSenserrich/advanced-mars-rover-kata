@@ -15,14 +15,21 @@
 	<packaging>jar</packaging>
 
 	<dependencies>
+		<!-- Replace legacy Log4j 1.x with Log4j2 API + Core -->
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<!-- Use JUnit Jupiter (JUnit 5) -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
@@ -35,12 +42,12 @@
 	<build>
 		<plugins>
 			<plugin>    
-		        <artifactId>maven-compiler-plugin</artifactId>
-		        <configuration>
-		            <source>${maven.compiler.source}</source>
-		            <target>${maven.compiler.source}</target>
-		        </configuration>
-		        <version>3.8.0</version>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.10.1</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
 		    </plugin>		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
