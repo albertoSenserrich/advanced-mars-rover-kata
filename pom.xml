@@ -12,15 +12,18 @@
     <properties>
         <!-- https://maven.apache.org/general.html#encoding-warning -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Target Java version for compilation. Migrated to Java 25. -->
-        <maven.compiler.source>25</maven.compiler.source>
-        <maven.compiler.target>25</maven.compiler.target>
+        <!-- Target Java version for compilation. Set to Java 17 (LTS, compatible with Spring Boot 2.5.4) -->
+        <!-- Note: Java 25 requires Spring Boot 3.x migration (future task) -->
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <!-- Logging: prefer Log4j2 over legacy Log4j 1.x -->
         <log4j.version>2.20.0</log4j.version>
         <!-- JUnit Jupiter (JUnit 5) -->
         <junit.version>5.9.3</junit.version>
         <!-- Mockito 5 (compatible with JUnit 5) -->
         <mockito.version>5.5.0</mockito.version>
+        <!-- Byte Buddy 1.14.x (with experimental mode for Java 25) -->
+        <bytebuddy.version>1.14.12</bytebuddy.version>
 		
         <!-- Keep a JUnit4 version for existing legacy tests while migrating to JUnit5 -->
         <junit4.version>4.13.2</junit4.version>
@@ -45,6 +48,8 @@
                 <version>3.0.0</version>
                 <configuration>
                     <useModulePath>false</useModulePath>
+                    <!-- Enable Byte Buddy experimental mode for Java 25 support -->
+                    <argLine>-Dnet.bytebuddy.experimental=true</argLine>
                 </configuration>
             </plugin>
             <plugin>
@@ -54,4 +59,15 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Byte Buddy: explicitly set to 1.15.x for Java 25 support -->
+            <dependency>
+                <groupId>net.bytebuddy</groupId>
+                <artifactId>byte-buddy</artifactId>
+                <version>${bytebuddy.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

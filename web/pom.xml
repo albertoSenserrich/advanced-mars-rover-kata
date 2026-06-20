@@ -14,7 +14,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/x
 <name>advanced-mars-rover</name>
 <description>Demo project for mars rover kata with additional features</description>
 <properties>
-<java.version>25</java.version>
+<java.version>17</java.version>
 </properties>
 <dependencies>
 <dependency>
